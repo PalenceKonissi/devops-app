@@ -1,0 +1,26 @@
+name: DevOps Automation Test Pipeline
+
+# Trigger this pipeline on every push or pull request to the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-verify:
+    # Run the tests on a fresh, cloud-hosted Ubuntu environment
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Copy the repository code into the runner environment
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    # Step 2: Fix script execution permissions just in case
+    - name: Ensure script is executable
+      run: chmod +x deploy.sh
+
+    # Step 3: Run the deployment script to verify it functions perfectly
+    - name: Run script test simulation
+      run: ./deploy.sh
